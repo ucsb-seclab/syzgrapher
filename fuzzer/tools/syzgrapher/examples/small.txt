@@ -1,0 +1,2 @@
+r0 = make_x()
+use_x(r0)

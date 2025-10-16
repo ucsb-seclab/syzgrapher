@@ -1,0 +1,4 @@
+
+r0 = open(&AUTO='./file0', 0x3, 0x9)
+read(r0, &AUTO, 0x20)
+close(r0)

@@ -1,0 +1,8 @@
+name: codeql/cpp-myqueries
+groups: 
+  - cpp
+  - queries
+dependencies:
+    codeql/cpp-all: "*"
+    codeql/suite-helpers: "*"
+extractor: cpp

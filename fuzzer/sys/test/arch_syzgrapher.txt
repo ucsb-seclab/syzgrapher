@@ -1,0 +1,121 @@
+# Test architecture for graph mutations
+
+meta arches["syzgrapher"]
+
+resource x[int32]
+resource y[int32]
+resource z[int32]
+
+make_x() x
+make_y(x x) y
+
+use_x(x x)
+use_x$const(x const[CONST_X])
+
+use_x_y(x x) y
+use_x_y$const(x const[CONST_X]) y
+
+use_y(y y)
+use_both(x x, y y)
+
+convert_x_to_z(x x) z
+
+destroy_x(x x)
+destroy_y(y y)
+destroy_z(z z)
+
+in_x(x ptr[in, x])
+out_x(x ptr[out, x])
+inout_x(x ptr[inout, x])
+
+union_xyz [
+	my_x	x
+	my_y	y
+	my_z	z
+]
+
+use_oneof_xyz(u union_xyz)
+
+my_struct {
+	my_x	x	(in)
+	my_y	y	(in)
+	my_z	z	(in)
+	out_x	x	(out)
+}
+
+use_struct(s ptr[in, my_struct])
+
+struct_dup {
+	out_0	x	(out)
+	out_1	x	(out)
+	out_2	x	(out)
+}
+
+use_struct_dup(s ptr[inout, struct_dup])
+
+resource a[int32]
+
+struct_two_a_out {
+	a_0	a	(out)
+	a_1	a	(out)
+}
+
+make_two_a(s ptr[inout, struct_two_a_out])
+
+struct_two_a_in {
+	a_0	a	(in)
+	a_1	a	(in)
+}
+
+use_two_a(s ptr[in, struct_two_a_in])
+
+make_a() a
+use_a(a a)
+
+resource b[int32]
+
+struct_opt_b {
+	b_0	b[opt]	(in)
+}
+
+make_opt_b(s ptr[inout, struct_opt_b]) b
+
+use_b(b b)
+make_b() b
+
+resource test_parent[int32]
+resource test_child[test_parent]
+
+make_child() test_child
+use_parent(p test_parent)
+use_child1(c test_child)
+use_child2(c test_child)
+use_child3(c test_child)
+
+# Test deletion directions
+
+del_x(x del[x])
+
+del_ptr_x(x ptr[del, x])
+
+struct_del_x {
+	x_0	x	(del)
+	x_1	x	(del)
+}
+
+del_struct_x(s ptr[inout, struct_del_x])
+
+resource hP[int32]
+resource hA[hP]
+resource hB[hP]
+resource hC[hB]
+
+make_hP() hP
+make_hA() hA
+make_hB() hB
+make_hC() hC
+
+use_hP(p1 hP, p2 hP, p3 hP)
+use_hA(a hA)
+use_hB(b hB)
+use_hC(c hC)

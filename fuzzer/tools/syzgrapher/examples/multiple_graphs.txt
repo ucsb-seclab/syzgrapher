@@ -1,0 +1,8 @@
+r0 = make_x()
+use_x(r0)
+
+r1 = make_a()
+use_a(r1)
+
+r2 = make_x()
+destroy_x(r2)

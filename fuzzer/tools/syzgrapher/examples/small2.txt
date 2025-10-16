@@ -1,0 +1,7 @@
+
+r0 = make_x()
+use_x(r0)
+r1 = make_y(r0)
+destroy_x(r0)
+use_y(r1)
+destroy_y(r1)

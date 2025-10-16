@@ -1,0 +1,3 @@
+r0 = make_child()
+use_parent(r0)
+use_child1(r0)
